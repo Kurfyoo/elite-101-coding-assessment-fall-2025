@@ -67,13 +67,13 @@ def search():
             print("--------------------------------------------")
     
     elif search_type == "genre":
-        genre = input("ENTER GENRE: ").title()
+        genre = input("ENTER GENRE: ").lower()
         
         print("\nmatching books")
         print("--------------------------------------------")
         if library_books:
             for book in library_books:
-                if book.genre == genre:
+                if genre in book.genre.lower():
                     book.print_info()
             print("end books.")
         else:
@@ -156,12 +156,15 @@ def list_overdue():
     print("--------------------------------------------")
     if library_books:
         for book in library_books:
-            if not book.due_date is None and book.due_date < datetime.now().strftime("%Y-%m-%d"):
-                book.print_info()
+            if book.due_date and not book.available:
+                due = datetime.strptime(book.due_date, "%Y-%m-%d")
+                if due < datetime.now():
+                    book.print_info()
         print("end books.")
     else:
         print("no books found.")
         print("--------------------------------------------")
+    tb.wait()
 
 """ -------- Level 5 --------
 # TODO: Convert your data into a Book class with methods like checkout() and return_book()
