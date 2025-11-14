@@ -12,7 +12,7 @@ def wait(clr=True):
         sys.exit(0)
 
     while key != "":
-        print("INVALID KEY")
+        print("invalid input.")
         key = input("PRESS ENTER TO CONTINUE (OR TYPE 'exit' TO QUIT): ")
         if key.strip().lower() == "exit":
             sys.exit(0)
